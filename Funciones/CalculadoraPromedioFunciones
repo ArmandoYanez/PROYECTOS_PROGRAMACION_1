@@ -1,0 +1,41 @@
+#include <iostream>
+
+using namespace std;
+
+float PedidaDeCalificaciones(float Calificacion[]);
+float CalculoDePromedio(float Calificacion[]);
+
+int main() {
+    float Calificacion[5];
+    float promedio = 0;
+
+    PedidaDeCalificaciones(Calificacion);
+    promedio = CalculoDePromedio(Calificacion);
+    
+    
+	cout << "Tu promedio es de: "<< promedio << endl;
+    if (promedio >= 9) {
+        cout << "Alumno de excelencia" << endl;
+    } else if (promedio >= 6) {
+        cout << "Alumno Aprobado" << endl;
+    } else {
+        cout << "Alumno Reprobado" << endl;
+    }
+
+    return 0;
+}
+
+float PedidaDeCalificaciones(float Calificacion[]) {
+    for (int i = 0; i < 5; i++) {
+        cout << "Ingresa la calificacion numero " << i + 1 << ": ";
+        cin >> Calificacion[i];
+    }
+}
+
+float CalculoDePromedio(float Calificacion[]) {
+    float promedio = 0;
+    for (int i = 0; i < 5; i++) {
+        promedio += Calificacion[i];
+    }
+    return promedio / 5;
+}
