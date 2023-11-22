@@ -45,22 +45,67 @@ T EleccionOpcion(){
 
 template <typename T>
 T Suma(){
-	PedirCantidadDeDatos<int>();
+    std::vector<T> V;
+    V = PedirCantidadDeDatos<T>();
+    T resultado;
+
+    std::cout << "Elementos del vector:" << std::endl;
+    for (const T& elemento : V) {
+        resultado += elemento;
+    }
+    std::cout << std::endl;
+    std::cout << "El resultado de tu suma es: "<< resultado << std::endl;
+    return resultado;
 }
 
 template <typename T>
 T Resta(){
-	PedirCantidadDeDatos<int>();
+    std::vector<T> V;
+    V = PedirCantidadDeDatos<T>();
+    T resultado = V[0]; 
+    
+    std::cout << "Elementos del vector:" << std::endl;
+    for (size_t i = 1; i < V.size(); ++i) {
+        resultado -= V[i];
+    }
+
+    std::cout << "El resultado de tu resta es: "<< resultado << std::endl;
+    return resultado;
 }
 
 template <typename T>
 T Multiplicacion(){
-	PedirCantidadDeDatos<int>();
+    std::vector<T> V;
+    V = PedirCantidadDeDatos<T>();
+    T resultado = 1;
+
+    std::cout << "Elementos del vector:" << std::endl;
+    for (const T& elemento : V) {
+        resultado *= elemento;
+    }
+    std::cout << std::endl;
+    std::cout << "El resultado de tu multiplicacion es: "<< resultado << std::endl;
+    return resultado;
 }
 
 template <typename T>
 T Division(){
-	PedirCantidadDeDatos<int>();
+	 std::vector<T> V;
+    V = PedirCantidadDeDatos<T>();
+    T resultado = V[0];
+
+    std::cout << "Elementos del vector:" << std::endl;
+    for (size_t i = 1; i < V.size(); ++i) {
+        if (V[i] != 0) {
+            resultado /= V[i];
+        } else {
+            std::cout << "Error: División por cero encontrada." << std::endl;
+            return 0;
+        }
+    }
+
+    std::cout << "El resultado de tu división es: " << resultado << std::endl;
+    return resultado;
 }
 
 
