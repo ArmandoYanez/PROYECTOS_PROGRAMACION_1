@@ -1,5 +1,5 @@
-//#ifndef CALCULADORA_H
-//#define CALCULADORA_H
+#ifndef CALCULADORA_H
+#define CALCULADORA_H
 
 #include <iostream>
 #include <vector>
@@ -19,6 +19,28 @@ std::vector<T> PedirCantidadDeDatos(){
     std::cout << "Cuantos datos se utilizaran en tu operacion?: " << std::endl;
     std::cin >> tamano;
 
+    std::vector<T> v;
+
+    for(int i = 0;i < tamano; i++){
+        v.push_back(RecopilarDatos<T>(i + 1));
+    }
+    return v;
+}
+
+template <typename T>
+std::vector<T> PedirCantidadDeDatosPP(){
+    int tamano = 2;
+    std::vector<T> v;
+
+    for(int i = 0;i < tamano; i++){
+        v.push_back(RecopilarDatos<T>(i + 1));
+    }
+    return v;
+}
+
+template <typename T>
+std::vector<T> PedirCantidadDeDatosR(){
+    int tamano = 1;
     std::vector<T> v;
 
     for(int i = 0;i < tamano; i++){
@@ -108,60 +130,98 @@ T Division(){
     return resultado;
 }
 
+template <typename T>
+T Porcentaje(){
+    std::vector<T> V;
+    V = PedirCantidadDeDatosPP<T>();
+    T valor = V[0];
+    T porcentaje = V[1];
+
+    T resultado = (valor * porcentaje) / static_cast<T>(100);
+
+    std::cout << "El " << porcentaje << "% de " << valor << " es: "<< resultado << std::endl;
+    return resultado;
+}
+
+template <typename T>
+T Raiz(){
+    std::vector<T> V;
+    V = PedirCantidadDeDatosR<T>();
+    T numero = V[0];
+    T estimacion = numero / static_cast<T>(2);
+
+    for (int i = 0; i < 10; ++i) {
+        estimacion = static_cast<T>(0.5) * (estimacion + (numero / estimacion));
+    }
+
+    std::cout << "La raíz cuadrada de " << numero << " es: "<< estimacion << std::endl;
+    return estimacion;
+}
+
+template <typename T>
+T Potencia(){
+    std::vector<T> V;
+    V = PedirCantidadDeDatosPP<T>();
+    T base = V[0];
+    T exponente = V[1];
+    T resultado = static_cast<T>(1);
+
+    for (T i = static_cast<T>(0); i < exponente; ++i) {
+        resultado *= base;
+    }
+
+    std::cout << base << " elevado a " << exponente << " es: "<< resultado << std::endl;
+    return resultado;
+}
+
 
 template <typename T>
 T ProcesoOperacion(T Opcion){
-	
+	T resultado;
 	switch(Opcion){
 		
 		case 1: 
-		Suma<float>();
+		    resultado = Suma<T>();
 		break;
 		
 		case 2:
-		Resta<float>();	
+		    resultado = Resta<T>();
 		break;
 			
 		case 3:
-		Multiplicacion<float>();
+		    resultado = Multiplicacion<T>();
 		break;
 		
 		case 4:
-		Division<float>();
+		    resultado = Division<T>();
 		break;
 		
 		case 5:
-			
+            resultado = Porcentaje<T>();
 		break;
 		
 		case 6:
-			
+            resultado = Raiz<T>();
 		break;
 		
-		case 7:
-			
+        case 7:
+            resultado = Potencia<T>();
 		break;
 		
 		default: 
-		
+		std::cout<<"Opcion no valida"<<std::endl;
 		break;
 	}
 	
-	
-	
-	
+    return resultado;
+
 }
 
 template <typename T>
 T ProcesoCompleto(){
-	ProcesoOperacion<int>(EleccionOpcion<int>());
+    T RF;
+	RF = ProcesoOperacion<int>(EleccionOpcion<int>());
+    return RF;
 }
 
-
-int main(){
-    ProcesoCompleto<int>();
-    return 0;
-}
-
-
-//#endif
+#endif
