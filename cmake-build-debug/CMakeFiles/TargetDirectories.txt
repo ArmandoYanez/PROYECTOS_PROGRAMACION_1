@@ -1,0 +1,3 @@
+C:/Users/Asus ROG/Desktop/Uniat/PROGRAMACION 1/PARCIAL 3/Codigo_P3/cmake-build-debug/CMakeFiles/Codigos_P3.dir
+C:/Users/Asus ROG/Desktop/Uniat/PROGRAMACION 1/PARCIAL 3/Codigo_P3/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Asus ROG/Desktop/Uniat/PROGRAMACION 1/PARCIAL 3/Codigo_P3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
