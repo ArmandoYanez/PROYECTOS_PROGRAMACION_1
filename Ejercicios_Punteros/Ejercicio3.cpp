@@ -1,6 +1,6 @@
 #include <iostream>
 
-void ModificarValor(int * PTR){
+void ModificarValor(int* PTR){
     *PTR = 7;
 }
 
