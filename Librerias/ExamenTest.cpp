@@ -83,6 +83,12 @@ int calcularAnio(){
     return anioActual;
 }
 
+//Crearcion de poliza
+void CrearcionDePoliza( std::string Nombre, std::string CURP, float Deducible, float MontoMax, int mes, int dia, int ano, int edad){
+    
+     PedirDatos(&Nombre,&CURP,&Deducible,&mes,&dia,&ano);
+}
+
 int main(){
     //Datos principales del objeto
     std::string Nombre, CURP;
@@ -91,8 +97,10 @@ int main(){
     //Fecha de nacimiento
     int mes, dia, ano;
     int edad;
-
-    PedirDatos(&Nombre,&CURP,&Deducible,&mes,&dia,&ano);
+    
+    
+    
+    CrearcionDePoliza(Nombre,CURP,Deducible,MontoMax,mes,dia,ano,edad);
 
     return 0;
 }
