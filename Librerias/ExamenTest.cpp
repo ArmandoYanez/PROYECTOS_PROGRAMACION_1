@@ -85,8 +85,29 @@ int calcularAnio(){
 
 //Crearcion de poliza
 void CrearcionDePoliza( std::string Nombre, std::string CURP, float Deducible, float MontoMax, int mes, int dia, int ano, int edad){
-    
+     int Opcion;    
+     std::cout<<"Selecciona la opcion deseada: "<<std::endl<<"1- Crear poliza."<<std::endl<<"2- Buscar poliza."<<std::endl<<"3- salir."<<std::endl;
+
      PedirDatos(&Nombre,&CURP,&Deducible,&mes,&dia,&ano);
+
+     switch (Opcion)
+     {
+     case 1:
+    
+        break;
+
+     case 2:
+    
+        break;
+
+     case 3:
+    
+        break;
+     
+     default:
+     
+        break;
+     }
 }
 
 int main(){
