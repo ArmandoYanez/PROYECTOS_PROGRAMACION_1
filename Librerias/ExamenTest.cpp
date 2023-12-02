@@ -3,6 +3,7 @@
 #include <ctime>
 #include <chrono>
 #include <sstream>
+#include <vector>
 
 
 //Funcion para calcular dia
@@ -168,7 +169,7 @@ protected:
     }
 };
 
-//Clase heredada
+//Clase heredada para poliza de vida
 class PolizaDeVida : public Poliza{
 public:
     PolizaDeVida(std::string Nombre, std::string CURP, float Deducible, float MontoMax, int mes, int dia, int ano, int edad, int folio, std::string Enfermedad, std::string TipoDeSANGRE)
@@ -240,15 +241,191 @@ protected:
     }
 };
 
+//Clase heredada para poliza de casa
+class PolizaDeCasa : public Poliza{
+public:
+    PolizaDeCasa(std::string Nombre, std::string CURP, float Deducible, float MontoMax, int mes, int dia, int ano, int edad, int folio, std::string Tamano, std::string Direccion, int anoConstruccion)
+            : Poliza(Nombre,CURP,Deducible,MontoMax,mes,dia,ano,edad,folio){
+
+        this-> anoConstruccion = anoConstruccion;
+        this-> Direccion = Direccion;
+        this-> Tamano = Tamano;
+    }
+
+    //Calculo de edad
+    int CalculoEdad(){
+        // Obtener fecha actual
+        int anoActual = calcularAnio();
+        int mesActual = calcularMes();
+        int diaActual = calcularDia();
+
+        // Calcular edad
+        int edadCalculada = anoActual - GetAno();
+
+        // Ajuste de edad si aún no ha pasado el cumpleaños este año
+        if (mesActual < GetMes() || (mesActual == GetMes() && diaActual < GetDia())) {
+            edadCalculada--;
+        }
+        edad = edadCalculada;
+        return edad;
+    }
+
+    //Calculo del deducible
+    float CalculoDeducible(){
+        if (GetMontoMax() <= 1000) {
+            Deducible = 0.1 * GetMontoMax();  // 10% del monto máximo
+        } else if (GetMontoMax() > 1000 && GetMontoMax() <= 5000) {
+            Deducible = 0.15 * GetMontoMax();  // 15% del monto máximo
+        } else {
+            Deducible = 0.2 * GetMontoMax();  // 20% del monto máximo
+        }
+        return Deducible;
+    }
+
+private:
+    std::string Tamano;
+    std::string Direccion;
+    int edad;
+    int anoConstruccion;
+    int Deducible;
+    std::string FolioPoliza;
+
+protected:
+    friend class Trabajador;
+    //Creacion de folio de la poliza sencilla
+    std::string RegistroCompleto(){
+        CalculoEdad();
+        CalculoDeducible();
+
+        std::stringstream Poliza; // Crear un stringstream
+
+        // Construir la cadena de texto en el stringstream
+        Poliza << std::endl << "Folio de seguro de casa: " << GetFolio() << std::endl
+               << "Nombre del asegurado: " << GetNombre() << std::endl
+               << "CURP: " << GetCURP() << std::endl
+               << "Deducible: " << Deducible << std::endl
+               << "Monto maximo: " << GetMontoMax() << std::endl
+               << "Fecha de nacimiento: " << GetDia() <<"/"<< GetMes() <<"/"<< GetAno() << std::endl
+               << "Edad: " << edad << std::endl
+               << "Tamaño de la casa: " << Tamano << std::endl
+               << "Direccion: " << Direccion << std::endl
+               << "Año de su cosntruccion: " << anoConstruccion << std::endl << std::endl;
+
+        FolioPoliza = Poliza.str(); // Obtener la cadena de texto del stringstream
+        std::cout << FolioPoliza; // Imprimir la cadena de texto
+        return FolioPoliza;
+    }
+};
+
+//Clase heredada para poliza de auto
+class PolizaDeAutomovil : public Poliza{
+public:
+    PolizaDeAutomovil(std::string Nombre, std::string CURP, float Deducible, float MontoMax, int mes, int dia, int ano, int edad, int folio, int anoAuto, float Kilometraje, std::string modelo,
+                      std::string marca, int NumeroDeSerie, std::string placa, std::string color )
+            : Poliza(Nombre,CURP,Deducible,MontoMax,mes,dia,ano,edad,folio){
+
+        this-> anoAuto = anoAuto;
+        this-> Kilometraje = Kilometraje;
+        this-> modelo = modelo;
+        this-> marca = marca;
+        this-> NumeroDeSerie = NumeroDeSerie;
+        this-> placa = placa;
+        this-> color = color;
+    }
+
+    //Calculo de edad
+    int CalculoEdad(){
+        // Obtener fecha actual
+        int anoActual = calcularAnio();
+        int mesActual = calcularMes();
+        int diaActual = calcularDia();
+
+        // Calcular edad
+        int edadCalculada = anoActual - GetAno();
+
+        // Ajuste de edad si aún no ha pasado el cumpleaños este año
+        if (mesActual < GetMes() || (mesActual == GetMes() && diaActual < GetDia())) {
+            edadCalculada--;
+        }
+        edad = edadCalculada;
+        return edad;
+    }
+
+    //Calculo del deducible
+    float CalculoDeducible(){
+        if (GetMontoMax() <= 1000) {
+            Deducible = 0.1 * GetMontoMax();  // 10% del monto máximo
+        } else if (GetMontoMax() > 1000 && GetMontoMax() <= 5000) {
+            Deducible = 0.15 * GetMontoMax();  // 15% del monto máximo
+        } else {
+            Deducible = 0.2 * GetMontoMax();  // 20% del monto máximo
+        }
+        return Deducible;
+    }
+
+private:
+    //Caracteristicas deñ carrp
+    int anoAuto;
+    float Kilometraje;
+    std::string modelo;
+    std::string marca;
+    int NumeroDeSerie;
+    std::string placa;
+    std::string color;
+
+    int edad;
+    int Deducible;
+    std::string FolioPoliza;
+
+protected:
+    friend class Trabajador;
+    //Creacion de folio de la poliza sencilla
+    std::string RegistroCompleto(){
+        CalculoEdad();
+        CalculoDeducible();
+
+        std::stringstream Poliza; // Crear un stringstream
+
+        // Construir la cadena de texto en el stringstream
+        Poliza << std::endl << "Folio de seguro de Automovil | Datos del propietario: " << GetFolio() << std::endl
+               << "Nombre del asegurado: " << GetNombre() << std::endl
+               << "CURP: " << GetCURP() << std::endl
+               << "Deducible: " << Deducible << std::endl
+               << "Monto maximo: " << GetMontoMax() << std::endl
+               << "Fecha de nacimiento: " << GetDia() <<"/"<< GetMes() <<"/"<< GetAno() << std::endl
+               << "Edad: " << edad << std::endl<< std::endl  << "Datos del automovil: " << std::endl
+               << "Modelo: " << modelo << std::endl
+               << "Marca: " << marca << std::endl
+               << "Kilometraje: " << Kilometraje << std::endl
+               << "Ano del automovil: " << anoAuto << std::endl
+               << "Color: " << color << std::endl
+               << "Numero de serie: " << NumeroDeSerie << std::endl
+               << "Placa: " << placa << std::endl << std::endl;
+
+        FolioPoliza = Poliza.str(); // Obtener la cadena de texto del stringstream
+        std::cout << FolioPoliza; // Imprimir la cadena de texto
+        return FolioPoliza;
+    }
+};
+
 //Clase amiga la cual puede crear las polizas
 class Trabajador{
 public:
+    //Diferentes funciones segun que tipo de poliza entra
     std::string Poliza(Poliza poliza){
         return poliza.RegistroCompleto();
     }
-
-    std::string PolizaDeVida(PolizaDeVida polizadevida){
+    //caso de poliza de vida
+    std::string Poliza(PolizaDeVida polizadevida){
         return polizadevida.RegistroCompleto();
+    }
+    //caso de poliza de casa
+    std::string Poliza(PolizaDeCasa polizaDeCasa){
+        return polizaDeCasa.RegistroCompleto();
+    }
+    //caso de poliza de automovil
+    std::string Poliza(PolizaDeAutomovil polizaDeAutomovil){
+        return polizaDeAutomovil.RegistroCompleto();
     }
 };
 
@@ -344,7 +521,10 @@ void PedirDatosExtraAuto (int* anoAuto, float* Kilometraje, std::string* modelo,
 }
 
 //Crearcion de poliza
-void CrearcionDePoliza(){
+std::string CrearcionDePoliza(int folio){
+    //Poliza
+    std::string PolizaEnString;
+
     //Datos principales del objeto
     std::string Nombre, CURP;
     float Deducible = 0, MontoMax = 0;
@@ -354,7 +534,6 @@ void CrearcionDePoliza(){
     int edad = 0;
 
     //Folio
-    int folio = 0;
     int Opcion;
 
     //Datos para poliza de casa
@@ -378,7 +557,6 @@ void CrearcionDePoliza(){
     //Llenar registro principal
     std::cout<<"Completa los siguientes datos para continuar: "<<std::endl;
     PedirDatos(&Nombre,&CURP,&MontoMax,&ano,&mes,&dia); //Funcion para pedir datos al usuario
-    folio++;
     Poliza poliza (Nombre, CURP, Deducible,  MontoMax,  mes,  dia,  ano,  edad, folio);
 
 
@@ -390,57 +568,88 @@ void CrearcionDePoliza(){
     std::cin>>Opcion;
 
     if(Opcion==1){
+        //Poliza de vida
         PedirDatosExtraVida(&Enfermedad,&TipoDeSANGRE); //Funcion para pedir datos al usuario
         PolizaDeVida polizadevida (Nombre, CURP, Deducible,  MontoMax,  mes,  dia,  ano,  edad, folio, Enfermedad, TipoDeSANGRE);
-        cuco.PolizaDeVida(polizadevida);
+        PolizaEnString = cuco.Poliza(polizadevida);
+        return  PolizaEnString;
     }
     if(Opcion==2) {
+        //Poliza de casa
         PedirDatosExtraCasa(&Tamano,&Direccion,&anoConstruccion); //Funcion para pedir datos al usuario
+        PolizaDeCasa polizaDeCasa (Nombre, CURP, Deducible,  MontoMax,  mes,  dia,  ano,  edad, folio, Tamano, Direccion, anoConstruccion);
+        PolizaEnString = cuco.Poliza(polizaDeCasa);
+        return  PolizaEnString;
     }
     if(Opcion==3){
+        //Poliza de automovil
         PedirDatosExtraAuto(&anoAuto,&Kilometraje,&modelo,&marca,&NumeroDeSerie,&placa,&color); //Funcion para pedir datos al usuario
+        PolizaDeAutomovil polizaDeAutomovil (Nombre, CURP, Deducible,  MontoMax,  mes,  dia,  ano,  edad, folio, anoAuto, Kilometraje, modelo, marca, NumeroDeSerie, placa, color);
+        PolizaEnString = cuco.Poliza(polizaDeAutomovil);
+        return  PolizaEnString;
     }
-    if(Opcion < 3 || Opcion > 1) {
+    //En caso de no elegir opcion correcta
+    else if(Opcion > 3 || Opcion < 1) {
         std::cout<<"Opcion no dispoble"<<std::endl;
-        CrearcionDePoliza();
+        CrearcionDePoliza(folio);
     }
 }
 
+//Funcion para revision de polizas
+void RevisionDePoliza(std::vector<std::string> VectorDePolizas){
+    int folioSolicitado;
+    std::cout<<"Ingresa el numero de folio de tu poliza: "<<std::endl;
+    std::cin>>folioSolicitado;
+    folioSolicitado -= 1;
+
+    std::cout<<VectorDePolizas[folioSolicitado]<<std::endl;
+}
+
 //Funcion para mostrar menu principal
-void MenuDeOpcioneP(){
-    //Menu de opciones
+std::vector<std::string>GeneradorPolizas(int folio, std::vector<std::string> VectorDePolizas){
+    //Menu de opciones principañ
     int Opcion;
     std::cout<<"Selecciona la opcion deseada: "<<std::endl<<"1- Crear poliza."<<std::endl<<"2- Buscar poliza."<<std::endl<<"3- salir."<<std::endl;
     std::cin>>Opcion;
+
 
     //Seleccion de opcion
     switch (Opcion)
     {
         case 1: //En caso de crear una poliza
-            CrearcionDePoliza();
+            folio++;
+            VectorDePolizas.push_back(CrearcionDePoliza(folio));
+            GeneradorPolizas(folio, VectorDePolizas);
+            return VectorDePolizas;
             break;
 
         case 2: //En caso de revisar una poliza
-
+            RevisionDePoliza(VectorDePolizas);
+            GeneradorPolizas(folio, VectorDePolizas);
+            return VectorDePolizas;
             break;
 
         case 3: //Para salir
-
+            return VectorDePolizas;
             break;
 
         default:
             //En caso de que la opcion no sea valida, ejecutar nuevamente la funcion
             std::cout<<"Opcion no valida."<<std::endl<<std::endl;
 
-            MenuDeOpcioneP();
+            GeneradorPolizas(folio, VectorDePolizas);
             break;
     }
 }
 
 
 int main(){
+    // Crear un vector de cadenas para guardar las polizas
+    std::vector<std::string> VectorDePolizas;
+    //Crear variable para el folio de las cadenas
+    int folio = 0;
 
-    MenuDeOpcioneP();
+    VectorDePolizas = GeneradorPolizas(folio, VectorDePolizas);
 
     return 0;
 }
