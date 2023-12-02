@@ -12,7 +12,6 @@
 #include <sstream>
 #include <vector>
 
-
 //Funcion para calcular dia
 int calcularDia(){
     //Calcular dia actual de la maquina
@@ -631,10 +630,17 @@ std::vector<std::string>GeneradorPolizas(int folio, std::vector<std::string> Vec
             break;
 
         case 2: //En caso de revisar una poliza
+            if(folio > 0){
             RevisionDePoliza(VectorDePolizas);
             GeneradorPolizas(folio, VectorDePolizas);
             return VectorDePolizas;
             break;
+            }else{
+                //En caso de que la opcion no sea valida, ejecutar nuevamente la funcion
+                std::cout<<"No existen polizas."<<std::endl<<std::endl;
+
+                GeneradorPolizas(folio, VectorDePolizas);
+            }
 
         case 3: //Para salir
             return VectorDePolizas;
