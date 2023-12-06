@@ -231,7 +231,7 @@ protected:
         std::stringstream Poliza; // Crear un stringstream
 
         // Construir la cadena de texto en el stringstream
-        Poliza << std::endl << "Folio de seguro de vida: " << GetFolio() << std::endl
+        Poliza << std::endl << "Numero de folio de seguro de vida: " << GetFolio() << std::endl
                << "Nombre del asegurado: " << GetNombre() << std::endl
                << "CURP: " << GetCURP() << std::endl
                << "Deducible: " << Deducible << std::endl
@@ -306,7 +306,7 @@ protected:
         std::stringstream Poliza; // Crear un stringstream
 
         // Construir la cadena de texto en el stringstream
-        Poliza << std::endl << "Folio de seguro de casa: " << GetFolio() << std::endl
+        Poliza << std::endl << "Numero de folio de seguro de casa: " << GetFolio() << std::endl
                << "Nombre del asegurado: " << GetNombre() << std::endl
                << "CURP: " << GetCURP() << std::endl
                << "Deducible: " << Deducible << std::endl
@@ -375,13 +375,14 @@ private:
     float Kilometraje;
     std::string modelo;
     std::string marca;
-    int NumeroDeSerie;
     std::string placa;
     std::string color;
+    std::string FolioPoliza;
 
+    int NumeroDeSerie;
     int edad;
     int Deducible;
-    std::string FolioPoliza;
+
 
 protected:
     friend class Trabajador;
@@ -393,7 +394,7 @@ protected:
         std::stringstream Poliza; // Crear un stringstream
 
         // Construir la cadena de texto en el stringstream
-        Poliza << std::endl << "Folio de seguro de Automovil | Datos del propietario: " << GetFolio() << std::endl
+        Poliza << std::endl << "Numero de folio de seguro de Automovil: " << GetFolio() << std::endl
                << "Nombre del asegurado: " << GetNombre() << std::endl
                << "CURP: " << GetCURP() << std::endl
                << "Deducible: " << Deducible << std::endl
