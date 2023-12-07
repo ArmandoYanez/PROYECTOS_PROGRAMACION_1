@@ -541,26 +541,9 @@ std::string CrearcionDePoliza(int folio){
     int mes = 0, dia = 0, ano = 0;
     int edad = 0;
 
-    //Folio
+    //Opcion
     int Opcion;
 
-    //Datos para poliza de casa
-    std::string Tamano;
-    std::string Direccion;
-    int anoConstruccion;
-
-    //Datos para poliza de vida
-    std::string Enfermedad;
-    std::string TipoDeSANGRE;
-
-    //Datos para poliza de coche
-    int anoAuto;
-    float Kilometraje;
-    std::string modelo;
-    std::string marca;
-    int NumeroDeSerie;
-    std::string placa;
-    std::string color;
 
     //Llenar registro principal
     std::cout<<"Completa los siguientes datos para continuar: "<<std::endl;
@@ -575,6 +558,10 @@ std::string CrearcionDePoliza(int folio){
     std::cin>>Opcion;
 
     if(Opcion==1){
+        //Datos para poliza de vida
+        std::string Enfermedad;
+        std::string TipoDeSANGRE;
+
         //Poliza de vida
         PedirDatosExtraVida(&Enfermedad,&TipoDeSANGRE); //Funcion para pedir datos al usuario
         PolizaDeVida polizadevida (Nombre, CURP, Deducible,  MontoMax,  mes,  dia,  ano,  edad, folio, Enfermedad, TipoDeSANGRE);
@@ -582,6 +569,11 @@ std::string CrearcionDePoliza(int folio){
         return  PolizaEnString;
     }
     if(Opcion==2) {
+        //Datos para poliza de casa
+        std::string Tamano;
+        std::string Direccion;
+        int anoConstruccion;
+
         //Poliza de casa
         PedirDatosExtraCasa(&Tamano,&Direccion,&anoConstruccion); //Funcion para pedir datos al usuario
         PolizaDeCasa polizaDeCasa (Nombre, CURP, Deducible,  MontoMax,  mes,  dia,  ano,  edad, folio, Tamano, Direccion, anoConstruccion);
@@ -589,6 +581,14 @@ std::string CrearcionDePoliza(int folio){
         return  PolizaEnString;
     }
     if(Opcion==3){
+        //Datos para poliza de coche
+        int anoAuto;
+        float Kilometraje;
+        std::string modelo;
+        std::string marca;
+        int NumeroDeSerie;
+        std::string placa;
+        std::string color;
         //Poliza de automovil
         PedirDatosExtraAuto(&anoAuto,&Kilometraje,&modelo,&marca,&NumeroDeSerie,&placa,&color); //Funcion para pedir datos al usuario
         PolizaDeAutomovil polizaDeAutomovil (Nombre, CURP, Deducible,  MontoMax,  mes,  dia,  ano,  edad, folio, anoAuto, Kilometraje, modelo, marca, NumeroDeSerie, placa, color);
